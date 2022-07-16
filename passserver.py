@@ -27,3 +27,40 @@ def threaded_client(connection):
     password = password.decode()
     name = name.decode()
     password=hashlib.sha256(str.encode(password)).hexdigest() # Password hash using SHA256
+    
+    #REGISTERATION PHASE
+    #Register new user in Hashtable Dictionary
+        if name not in Hashtable:
+            Hashtable[name] = password
+            conn.send(str.encode('SUCCESS IN REGISTRATION!'))
+            print('Registered account: ',name)
+            print("{:<8} {:<20}".format('USER','PASSWORD'))
+            for k, v in HashTable.items():
+                label, num = k, v
+            print("{:<8} {:<20}".format(label,num))
+            print("**********************")
+            
+        else: 
+            #Check if the entered password is correct for existing user 
+            if(HashTable[name] == password):
+                conn.send(str.encode('Success to connect...'))
+                print('Connected account: ', name)
+            else:
+                conn.send(str.encode('FAIL TO LOGIN!'))
+                print(' Connection Denied: ',name)
+                
+            while True: 
+                break 
+                conn.close()
+                
+        while True: 
+            Client, address = ServerSocket.accept()
+            Client_handler = threading.Thread(
+                    target = threaded client,
+                    args = (Client,)
+            )
+            client_handler.start()
+            ThreadCount += 1
+            print('Connection Request: ' + str(ThreadCount))
+  ServerSocket.close()
+                
